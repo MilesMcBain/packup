@@ -1,6 +1,18 @@
 
 packup <- function(){
     doc <- rstudioapi::getActiveDocumentContext()
+    if(doc$path == ""){
+        message("Cannot packup unsaved file. Please save and checkin this file.")
+        return(FALSE)
+    }
+    SOURCE_RMD <- grepl("([RMDrmd]){3}$", doc$path)
+    if(SOURCE_RMD){
+        #find the first location of the first line of the first chunk
+        #insertion_target <-
+    }
+    else{
+        insertion_target <- rstudioapi::document_position(0,0)
+    }
     lib_matches <- regexec(pattern = "^\\s*library\\(\"*[a-zA-Z0-9]+\\\"*)", text = doc$contents)
     line_matches <- which(unlist(lib_matches) == 1)
     line_lengths <- unlist(lapply(lib_matches[line_matches], attr, "match.length"))
@@ -23,7 +35,7 @@ packup <- function(){
     }
     paste0(lib_list_s, collapse = "\n") %>%
     paste0(., "\n") %>%
-    rstudioapi::insertText(location = rstudioapi::document_position(0,0))
+    rstudioapi::insertText(location = insertion_target)
 }
 packup()
 
