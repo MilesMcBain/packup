@@ -5,5 +5,5 @@ A word of warning: packup is like an OCD robo-vac for your code. And just like a
 
 Otherwise, enjoy!
 
-#installtion
+#installation
 `devtools::install_github("milesmcbain/packup")`
