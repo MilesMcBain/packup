@@ -1,0 +1,6 @@
+Name: Collect and Arrange library() calls
+Description: Moves all calls to library() to top of document and arranges in alphabetical order.
+Binding: packup
+Interactive: false
+
+

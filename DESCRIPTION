@@ -1,9 +1,18 @@
 Package: packup
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.3.2)
-License: What license is it under?
+Title: Collect and Arrange library() Calls
+Version: 0.0.1
+Authors@R: person("First", "Last", email = "miles.mcbaint@gmail.com", role = c("aut", "cre"))
+Description: An RStudio addin that moves all library() calls up to top of document and arrange in alphabetical order.
+Depending on what convention the user has used more, all packages are homogenised to quoted or unquoted names.
+The exact location differs from .R to .Rmd. In .R the list starts at document position 0,0. In .Rmd it is the first line
+of the first chunk.
+Depends: 
+    R (>= 3.3.2)
+Imports:
+    rstudioapi (>= 0.6)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: testthat
+URL: https://github.com/milesmcbain/packuo
+BugReports: https://github.com/milesmcbain/packup/issues

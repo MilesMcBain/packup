@@ -1,4 +1,10 @@
-
+#' Packup
+#' @description Moves all library() calls up to top of document and arrange in alphabetical order.
+#' Depending on what convention the user has used more, all packages are homogenised to quoted or unquoted names.
+#' The exact location differs from .R to .Rmd. In .R the list starts at document position 0,0. In .Rmd it is the first line
+#' of the first chunk.
+#' @return TRUE if sucessful, FALSE if a problem was encountered.
+#' @export
 packup <- function(){
     doc <- rstudioapi::getActiveDocumentContext()
     if(doc$path == ""){
@@ -8,7 +14,8 @@ packup <- function(){
     SOURCE_RMD <- grepl("([RMDrmd]){3}$", doc$path)
     if(SOURCE_RMD){
         #find the first location of the first line of the first chunk
-        #insertion_target <-
+        r_chunk_matches <- which(regexpr(pattern = "^\\s*```\\{\\s*[Rr]\\s*, .*\\}", doc$contents) == 1, arr.ind = TRUE)
+        insertion_target <- rstudioapi::document_position(r_chunk_matches[[1]]+1,0)
     }
     else{
         insertion_target <- rstudioapi::document_position(0,0)
@@ -21,29 +28,17 @@ packup <- function(){
     replace_range_list <- mapply(rstudioapi::document_range, replace_location_starts, replacte_location_ends, SIMPLIFY = FALSE)
     rstudioapi::modifyRange(location = replace_range_list, "")
 
-    lib_list <- regmatches(x = doc$contents, m = lib_matches) %>%
-    unlist() %>%
-    sort() %>%
-    unique()
-
-    quote_count <- sum(grepl(pattern = "\"", lib_list))
+    lib_list <- unique( sort( unlist( regmatches(x = doc$contents, m = lib_matches) ) ) )
+    quote_count <- sum( grepl(pattern = "\"", lib_list) )
     #strip all quotes
     lib_list_s <- gsub("\"", "", lib_list)
 
+    #Decide what has more usage, quotes or no quotes.
     if(quote_count >= round(length(lib_list)/2)){
-        lib_list_s <- gsub("\\(","\\(\"",gsub("\\)", "\"\\)",lib_list_s))
+        lib_list_s <- gsub("\\(","\\(\"", gsub("\\)", "\"\\)",lib_list_s) )
     }
-    paste0(lib_list_s, collapse = "\n") %>%
-    paste0(., "\n") %>%
-    rstudioapi::insertText(location = insertion_target)
-}
-packup()
 
-library(ggplot2)
-library(ggplot2)
-library(purrr)
-library("formaelle")
-library("quoted")
-library("dplyr")
-library("AER")
-library("zzzzzzzzz")
+    rstudioapi::insertText( paste0( paste0(lib_list_s, collapse = "\n"), "\n"),  location = insertion_target)
+    return(TRUE)
+}
+
