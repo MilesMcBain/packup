@@ -7,3 +7,6 @@ Otherwise, enjoy!
 
 #installation
 `devtools::install_github("milesmcbain/packup")`
+
+#Acknowledgements
+Thanks to my friends @masalmon and @aammd, and @njtierney for coming up with this idea and inspiring me to make it happen for the great of all!
