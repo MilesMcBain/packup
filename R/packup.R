@@ -14,7 +14,7 @@ packup <- function(){
     SOURCE_RMD <- grepl("([RMDrmd]){3}$", doc$path)
     if(SOURCE_RMD){
         #find the first location of the first line of the first chunk
-        r_chunk_matches <- which(regexpr(pattern = "^\\s*```\\{\\s*[Rr]\\s*, .*\\}", doc$contents) == 1, arr.ind = TRUE)
+        r_chunk_matches <- which(regexpr(pattern = "^\\s*```\\{\\s*[Rr]\\s*.*\\}", doc$contents) == 1, arr.ind = TRUE)
         insertion_target <- rstudioapi::document_position(r_chunk_matches[[1]]+1,0)
     }
     else{

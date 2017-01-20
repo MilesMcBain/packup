@@ -1,0 +1,32 @@
+---
+title: "packup-test"
+author: "Nicholas Tierney"
+date: "20/01/2017"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(tidyverse)
+library(purrr)
+library(ggalt)
+library(ggthemes)
+library(leaflet)
+library(knitr)
+library(visdat)
+library(readr)
+library(readxl)
+library(htmlwidgets)
+library(broom)
+library(maxcovr)
+library(english)
+library(lubridate)
+library(webshot) # for taking screennshots
+library(stringr)
+# load the utility functions
+library(smaed)
+library(rprojroot)
+packup::packup()
+doc <- rstudioapi::getActiveDocumentContext()
+```
