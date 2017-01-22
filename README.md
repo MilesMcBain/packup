@@ -6,7 +6,7 @@ A word of warning: packup is like an OCD robo-vac for your code. And just like a
 Otherwise, enjoy!
 
 # Usage
-packup is an RStudio addin. Once the packages is installed you can invoke a packup from the RStudio addins menu. Particularly hasty individuls can even bind a hot key to it.
+packup is an RStudio addin. Once the package is installed you can invoke a packup from the RStudio addins menu. Particularly hasty individuls can even bind a hotkey to it.
 
 ![alphabetical!](https://raw.githubusercontent.com/milesmcbain/packup/master/inst/media/packup_demo.gif)
 
