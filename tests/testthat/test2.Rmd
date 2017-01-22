@@ -1,0 +1,22 @@
+---
+title: "packup-test2"
+author: "Miles McBain"
+date: "20/01/2017"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(queuecomputer)
+library(tidyverse)
+library(ibuttonr)
+library(datapasta)
+```
+
+```{r}
+library(visdat)
+library(naniar)
+library(rtimicropem)
+```
