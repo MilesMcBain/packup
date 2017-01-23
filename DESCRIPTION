@@ -1,14 +1,14 @@
 Package: packup
 Title: Collect and Arrange library() Calls
 Version: 0.0.1
-Authors@R: person("First", "Last", email = "miles.mcbaint@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Miles", "McBain", email = "miles.mcbaint@gmail.com", role = c("aut", "cre"))
 Description: An RStudio addin that moves all library() calls up to top of
     document and arrange in alphabetical order. Depending on what convention the
     user has used more, all packages are homogenised to quoted or unquoted names.
     The exact location differs from . R to .Rmd. In .R the list starts at document
     position 0,0. In .Rmd it is the first line of the first chunk.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.3.1)
 Imports:
     rstudioapi (>= 0.6)
 License: MIT + file LICENSE
@@ -16,6 +16,6 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
     testthat
-URL: https://github.com/milesmcbain/packuo
+URL: https://github.com/milesmcbain/packup
 BugReports: https://github.com/milesmcbain/packup/issues
 RoxygenNote: 5.0.1
