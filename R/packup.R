@@ -38,10 +38,9 @@ packup <- function(){
                       perl = TRUE)
 
     line_matches <- which(unlist(lib_matches) >= 1)
-    line_lengths <- unlist(lapply(lib_matches[line_matches], attr, "match.length"))
 
-    replace_location_starts <- mapply(rstudioapi::document_position, line_matches, 1, SIMPLIFY = FALSE)
-    replacte_location_ends <- mapply(rstudioapi::document_position, line_matches , line_lengths +1, SIMPLIFY = FALSE)
+    replace_location_starts <- mapply(rstudioapi::document_position, line_matches, 0, SIMPLIFY = FALSE)
+    replacte_location_ends <- mapply(rstudioapi::document_position, line_matches+1 , 0, SIMPLIFY = FALSE)
     replace_range_list <- mapply(rstudioapi::document_range, replace_location_starts, replacte_location_ends, SIMPLIFY = FALSE)
     rstudioapi::modifyRange(location = replace_range_list, "")
 
