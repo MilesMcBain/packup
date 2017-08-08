@@ -1,8 +1,8 @@
 Package: packup
 Title: Collect and Arrange library() Calls
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: person("Miles", "McBain", email = "miles.mcbain@gmail.com", role = c("aut", "cre"))
-Description: An RStudio addin that moves all library() calls up to top of
+Description: An RStudio addin that moves all library(), require(), and pload() calls up to top of
     document and arrange in alphabetical order. Depending on what convention the
     user has used more, all packages are homogenised to quoted or unquoted names.
     The exact location differs from . R to .Rmd. In .R the list starts at document

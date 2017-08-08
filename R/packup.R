@@ -1,5 +1,5 @@
 #' Packup
-#' @description Moves all library() calls up to top of document and arrange in alphabetical order.
+#' @description Moves all library(), require(), and pload() calls up to top of document and arrange in alphabetical order.
 #' Depending on what convention the user has used more, all packages are homogenised to quoted or unquoted names.
 #' The exact location differs from .R to .Rmd. In .R the list starts at document position 0,0. In .Rmd it is the first line
 #' of the first chunk.
@@ -20,11 +20,28 @@ packup <- function(){
     else{
         insertion_target <- rstudioapi::document_position(0,0)
     }
-    lib_matches <- regexec(pattern = "^\\s*library\\(\"*[a-zA-Z0-9]+\\\"*)", text = doc$contents)
-    line_matches <- which(unlist(lib_matches) == 1)
+    # Filter comment lines
+    comments <- "^\\s*#"
+    comment_lines <- grepl(pattern = comments, x = doc)
+    doc <- doc[!comment_lines]
+
+    # Search for library matches
+    lib_patterns <- list(
+        library = "(?:^\\s*library\\s*\\(\"*[a-zA-Z0-9.]+\"*\\).*$)",
+        require   = "(?:^\\s*require\\s*\\(\"*[a-zA-Z0-9.]+\"*\\).*$)",
+        p_load = "(?:^\\s*p_load\\s*\\(\"*[a-zA-Z0-9.]+\"*[\\s*\\,\\s*\"*[a-zA-Z0-9.]+\"*]*\\).*$)"
+    )
+
+    #lib_matches <- regexec(pattern = "^\\s*library\\(\"*[a-zA-Z0-9]+\\\"*)", text = doc$contents)
+    lib_matches <- regexec(pattern = paste0(lib_patterns, collapse = "|"),
+                      text = doc$contents,
+                      perl = TRUE)
+
+    line_matches <- which(unlist(lib_matches) >= 1)
     line_lengths <- unlist(lapply(lib_matches[line_matches], attr, "match.length"))
+
     replace_location_starts <- mapply(rstudioapi::document_position, line_matches, 1, SIMPLIFY = FALSE)
-    replacte_location_ends <- mapply(rstudioapi::document_position, line_matches, line_lengths + 1, SIMPLIFY = FALSE)
+    replacte_location_ends <- mapply(rstudioapi::document_position, line_matches , line_lengths +1, SIMPLIFY = FALSE)
     replace_range_list <- mapply(rstudioapi::document_range, replace_location_starts, replacte_location_ends, SIMPLIFY = FALSE)
     rstudioapi::modifyRange(location = replace_range_list, "")
 
